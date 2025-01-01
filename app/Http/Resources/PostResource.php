@@ -3,9 +3,10 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class Post extends ResourceCollection
+class PostResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -14,6 +15,7 @@ class Post extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
+        // dd($this->resource);
         return [
             'type' => 'posts',
             'id' => $this->id,
