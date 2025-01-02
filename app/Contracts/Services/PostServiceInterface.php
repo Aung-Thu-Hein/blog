@@ -2,9 +2,9 @@
 
 namespace App\Contracts\Services;
 
-use App\Http\Resources\Post;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\PostResource;
 
 interface PostServiceInterface
 {
@@ -13,38 +13,38 @@ interface PostServiceInterface
      *
      * @return void
      */
-    public function getAllPosts();
+    public function getAllPosts(): ResourceCollection;
 
     /**
      * get post by its ID
      *
      * @param [type] $id
-     * @return void
+     * @return PostResource
      */
-    public function getPost($id);
+    public function getPost($id): PostResource;
 
     /**
      * create a post
      *
      * @param Request $request
-     * @return void
+     * @return PostResource
      */
-    public function createPost(Request $request);
+    public function createPost(Request $request): PostResource;
 
     /**
      * update a post by ID
      *
      * @param [type] $id
      * @param Request $request
-     * @return void
+     * @return bool
      */
-    public function updatePost($id, Request $request);
+    public function updatePost($id, Request $request): bool;
 
     /**
      * delete post by its ID
      *
      * @param [type] $id
-     * @return void
+     * @return bool|null
      */
-    public function deletePost($id);
+    public function deletePost($id): bool|null;
 }

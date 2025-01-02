@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\PostResource;
 use App\Contracts\Daos\PostDaoInterface;
 use App\Contracts\Services\PostServiceInterface;
-use App\Http\Resources\PostResource;
-use Illuminate\Http\Request;
 
 class PostService implements PostServiceInterface
 {
@@ -14,21 +15,21 @@ class PostService implements PostServiceInterface
 
     }
 
-    public function getAllPosts()
+    public function getAllPosts(): ResourceCollection
     {
         $posts = $this->postDao->all();
 
         return PostResource::collection($posts);
     }
 
-    public function getPost($id)
+    public function getPost($id): PostResource
     {
         $post = $this->postDao->getPost($id);
 
         return new PostResource($post);
     }
 
-    public function createPost(Request $request)
+    public function createPost(Request $request): PostResource
     {
         $data = [
             'title' => $request->input('data.attributes.title'),
@@ -40,7 +41,7 @@ class PostService implements PostServiceInterface
 
         return new PostResource($post);
     }
-    public function updatePost($id, Request $request)
+    public function updatePost($id, Request $request): bool
     {
         $data = [
             'title' => $request->input('data.attributes.title'),
@@ -51,7 +52,7 @@ class PostService implements PostServiceInterface
         return $this->postDao->update($id, $data);
     }
 
-    public function deletePost($id)
+    public function deletePost($id): bool|null
     {
         return $this->postDao->delete($id);
     }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Contracts\Services\PostServiceInterface;
-use App\Http\Controllers\Controller;
-use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Http\Controllers\Controller;
+use App\Contracts\Services\PostServiceInterface;
 
 class PostController extends Controller
 {
@@ -17,6 +17,11 @@ class PostController extends Controller
     public function index()
     {
         return $this->postService->getAllPosts();
+    }
+
+    public function show(Post $post)
+    {
+        return $this->postService->getPost($post->id);
     }
 
     public function store(Request $request)
